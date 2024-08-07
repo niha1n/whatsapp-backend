@@ -16,7 +16,11 @@ const client = twilio(accountSid, authToken);
 app.use(bodyParser.json());
 
 // Enable CORS for all routes
-app.use(cors());
+app.use(cors({
+  origin: '*', // or specify your frontend URL
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+}));
 
 app.post('/api/sendMessage', async (req, res) => {
   const { name, email, subject, message } = req.body;
