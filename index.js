@@ -1,11 +1,9 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const twilio = require('twilio');
 const cors = require('cors');
 require('dotenv').config(); // Load environment variables from .env file
 
 const app = express();
-const port = process.env.PORT || 5000;
 
 // Twilio credentials from environment variables
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
@@ -13,7 +11,7 @@ const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = twilio(accountSid, authToken);
 
 // Middleware to parse JSON
-app.use(bodyParser.json());
+app.use(express.json());
 
 // Enable CORS for all routes
 app.use(cors({
@@ -50,6 +48,5 @@ app.post('/api/sendMessage', async (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
-});
+// Export the app as a Vercel function
+module.exports = app;
