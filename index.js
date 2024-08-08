@@ -32,14 +32,7 @@ app.post('/api/sendMessage', async (req, res) => {
   const { name, email, subject, message } = req.body;
 
   // Formatting the message
-  const formattedMessage = `
-    Name: ${name}
-    Email: ${email}
-    Subject: ${subject}
-
-    Message:
-    ${message}
-  `;
+  const formattedMessage = `Name: ${name}\nEmail: ${email}\nSubject: ${subject}\nMessage:${message}`;
 
   try {
     // Sending message to WhatsApp using Twilio
