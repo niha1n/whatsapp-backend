@@ -14,11 +14,12 @@ const client = twilio(accountSid, authToken);
 app.use(express.json());
 
 // Enable CORS for all routes
-app.use(cors({
-  origin: '*', // or specify your frontend URL
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  credentials: true,
-}));
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", '*');
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+  next();
+});
 
 app.post('/api/sendMessage', async (req, res) => {
   const { name, email, subject, message } = req.body;
